@@ -1,0 +1,486 @@
+<!--
+Página com um formulário para a geração de plano de contingenciamento de desastres.
+Campos a serem preenchidos:
+- Endereço
+- Membros da família (com botão para inserir mais um membro)
+-- Nome
+-- Telefone
+-- Redes sociais
+-- e-mail
+-- Informações médicas importantes ou outras informações
+
+- Planos de Emergência (com botão para incluir mais um plano)
+-- Nome do Plano
+-- Endereço
+-- Telefone de Emergência
+-- Website
+-- Plano de Emergência (campo textarea)
+
+- Contatos de Emergência (com botao para adicionar outro contato)
+-- Nome
+-- Celular
+-- Endereço
+-- E-mail
+
+- Locais de Encontro (botão para inserir mais um local)
+-- Localização
+-- Instruções
+
+- Informações médicas (com botão para inserir novo)
+-- Nome do Médico
+-- Contato
+-- Observações
+
+Ao final, botão para enviar para a página plano.php
+
+Na tag style, criar um estilo para os campos de texto e botões, de forma que fiquem alinhados e com um espaçamento adequado.
+
+Para cada botão de adicionar, criar um botão para remover os campos
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /*
+        criar um estilo para o formulário, alinhando os campos de texto e botões, criando agrupamentos de campos
+        */
+        *{
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        header{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        main{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        main p{
+            width: 80%;
+        }
+
+        .logo-esq{
+            width: 15%;
+            height: 50%;
+        }
+
+        .logo-dir{
+            width: 10%;
+            height: 50%;
+        }
+
+        .titulo{
+            font-size: larger;
+        }
+        .menu{
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+        }
+
+        form{
+            width: 80%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        input, textarea{
+            margin: 5px;
+            width: 80%;
+        }
+
+        button{
+            padding: 5px;
+        }
+
+        div{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
+
+        div > *{
+            margin: 5px;
+        }
+
+        footer{
+            margin: 0px 10%;
+            width: 80%;
+        }
+        .importante{
+            font-weight: bold;
+            color: red;
+        }
+    </style>
+    <script>
+        //criar as funções para os botões contidos na página
+        //alterar para que os campos sejam adicionados em divs, para que seja possível remover o conjunto de campos
+        
+        function addRisco(){
+            let riscos = document.getElementById('riscos');
+
+            let risco = document.createElement('div');
+            risco.classList.add('risco');
+            riscos.appendChild(risco);
+
+            let label = document.createElement('label');
+            label.htmlFor = 'risco_ameaca';
+            label.textContent = 'Risco (Ameaça)';
+            risco.appendChild(label);
+
+            let input = document.createElement('input');
+            input.type = 'text';
+            input.name = 'risco_ameaca[]';
+            input.placeholder = 'Ameaça';
+            risco.appendChild(input);
+
+            input = document.createElement('input');
+            input.type = 'text';
+            input.name = 'risco_vulnerabilidade[]';
+            input.placeholder = 'Vulnerabilidades';
+            risco.appendChild(input);
+
+            input = document.createElement('input');
+            input.type = 'text';
+            input.name = 'risco_acoes[]';
+            input.placeholder = 'Ações de redução de risco';
+            risco.appendChild(input);
+
+            input = document.createElement('input');
+            input.type = 'text';
+            input.name = 'risco_responsavel[]';
+            input.placeholder = 'Responsável pela ação';
+            risco.appendChild(input);
+        }
+
+        function addMembro(){
+            let membros = document.getElementById('membros');
+
+            let membro = document.createElement('div');
+            membro.classList.add('membro');
+            membros.appendChild(membro);
+
+            let label = document.createElement('label');
+            label.htmlFor = 'membro_nome';
+            label.textContent = 'Membro';
+            membro.appendChild(label);
+
+            let input = document.createElement('input');
+            input.type = 'text';
+            input.name = 'membro_nome[]';
+            input.placeholder = 'Nome';
+            membro.appendChild(input);
+
+            input = document.createElement('input');
+            input.type = 'number';
+            input.name = 'membro_idade[]';
+            input.placeholder = 'Idade';
+            membro.appendChild(input);
+
+            input = document.createElement('input');
+            input.type = 'text';
+            input.name = 'membro_parentesco[]';
+            input.placeholder = 'Parentesco';
+            membro.appendChild(input);
+
+            input = document.createElement('input');
+            input.type = 'text';
+            input.name = 'membro_cuidados[]';
+            input.placeholder = 'Cuidados com a saúde';
+            membro.appendChild(input);
+
+            input = document.createElement('input');
+            input.type = 'text';
+            input.name = 'membro_telefone[]';
+            input.placeholder = 'Número do celular';
+            membro.appendChild(input);
+
+            input = document.createElement('input');
+            input.type = 'text';
+            input.name = 'membro_redes_sociais[]';
+            input.placeholder = 'Mídia Social';
+            membro.appendChild(input);
+
+            input = document.createElement('input');
+            input.type = 'email';
+            input.name = 'membro_email[]';
+            input.placeholder = 'E-mail';
+            membro.appendChild(input);
+
+            input = document.createElement('input');
+            input.type = 'text';
+            input.name = 'membro_informacoes[]';
+            input.placeholder = 'Informações médicas ou outras informações importantes';
+            membro.appendChild(input);
+
+            input = document.createElement('input');
+            input.type = 'text';
+            input.name = 'membro_grupo_sanguineo[]';
+            input.placeholder = 'Grupo sanguíneo';
+            membro.appendChild(input);
+
+            input = document.createElement('input');
+            input.type = 'text';
+            input.name = 'membro_alergias[]';
+            input.placeholder = 'Informações e prescrições sobre alergias';
+            membro.appendChild(input);
+
+            input = document.createElement('input');
+            input.type = 'text';
+            input.name = 'membro_plano_saude[]';
+            input.placeholder = 'Nome do Plano de Saúde';
+            membro.appendChild(input);
+
+            input = document.createElement('input');
+            input.type = 'text';
+            input.name = 'membro_carteira_plano[]';
+            input.placeholder = 'Número da carteira do plano/registro';
+            membro.appendChild(input);
+
+        }
+
+        function addPlano(){
+            let planos = document.getElementById('planos');
+
+            let plano = document.createElement('div');
+            plano.classList.add('plano');
+            planos.appendChild(plano);
+
+            let label = document.createElement('label');
+            label.htmlFor = 'plano_nome';
+            label.textContent = 'Plano';
+            plano.appendChild(label);
+
+            let input = document.createElement('input');
+            input.type = 'text';
+            input.name = 'plano_responsavel[]';
+            input.placeholder = 'Responsável (nomear)';
+            plano.appendChild(input);
+
+            input = document.createElement('textarea');
+            input.name = 'plano_plano[]';
+            input.placeholder = 'O que fazer. Exemplo: \'desligar o disjuntor.\'';
+            plano.appendChild(input);
+        }
+
+        function addContato(){
+            let contatos = document.getElementById('contatos');
+
+            let contato = document.createElement('div');
+            contato.classList.add('contato');
+            contatos.appendChild(contato);
+
+            let input = document.createElement('input');
+            input.type = 'text';
+            input.name = 'contato_nome[]';
+            input.placeholder = 'Nome';
+            contato.appendChild(input);
+
+            input = document.createElement('input');
+            input.type = 'text';
+            input.name = 'contato_celular[]';
+            input.placeholder = 'Celular';
+            contato.appendChild(input);
+
+            input = document.createElement('input');
+            input.type = 'text';
+            input.name = 'contato_endereco[]';
+            input.placeholder = 'Endereço';
+            contato.appendChild(input);
+
+            input = document.createElement('input');
+            input.type = 'text';
+            input.name = 'contato_email[]';
+            input.placeholder = 'E-mail';
+            contato.appendChild(input);
+        }
+
+        function addLocal(){
+            let locais = document.getElementById('locais');
+
+            let local = document.createElement('div');
+            local.classList.add('local');
+            locais.appendChild(local);
+
+            let label = document.createElement('label');
+            label.htmlFor = 'local_localizacao';
+            label.textContent = 'Local';
+            let input = document.createElement('input');
+            input.type = 'text';
+            input.name = 'local_localizacao[]';
+            input.placeholder = 'Localização';
+            local.appendChild(input);
+
+            input = document.createElement('textarea');
+            input.name = 'local_instrucoes[]';
+            input.placeholder = 'Instruções';
+            local.appendChild(input);
+        }
+
+        function addMedico(){
+            let medicos = document.getElementById('medicos');
+
+            let medico = document.createElement('div');
+            medico.classList.add('medico');
+            medicos.appendChild(medico);
+
+            let label = document.createElement('label');
+            label.htmlFor = 'medico_nome';
+            label.textContent = 'Médico';
+            
+            let input = document.createElement('input');
+            input.type = 'text';
+            input.name = 'medico_nome[]';
+            input.placeholder = 'Nome do Médico';
+            medico.appendChild(input);
+
+            input = document.createElement('input');
+            input.type = 'text';
+            input.name = 'medico_contato[]';
+            input.placeholder = 'Contato';
+            medico.appendChild(input);
+
+            input = document.createElement('textarea');
+            input.name = 'medico_observacoes[]';
+            input.placeholder = 'Observações';
+            medico.appendChild(input);
+        }
+
+
+    </script>
+    <script src="https://kit.fontawesome.com/91fc3593c6.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <header>
+        <img src="img/logo-ifc.png" alt="IFC-Camboriú" class="logo-esq">
+        <h1 class="titulo">AUTOPROTEÇÃO MÃO</h1>
+        <img src="img/logo.png" alt="Curso Técnico em Defesa Civil" class="logo-dir">
+    </header>
+    <main>
+        <h2><span class="amarelo">CONHEÇA OS RISCOS,</span> <span class="amarelo">PREPARE-SE, </span><span class="azul">MANTENHA-SE INFORMADO</span></h2>
+        <p>Este é um guai de como agir antes, durante e depois do desastre. Lembre-se que vocês podem não estar juntos quando o desastre acontecer.</p>
+        <p>É importante saber como todos vão se encontrar.</p>
+        <p>Faça seu Plano de AUTOPROTEÇÃO Familiar e tenha na plama da mão (mas não esqueça de imprimir, porque a bateria pode acabar).
+        <p class="importante">Importante: Não há salvamento de dados. O plano gera um documento que será salvo em seu dispositivo.</p>    
+        </p>
+        <form action="plano.php" method="post">
+            <label for="endereco">Endereço</label>
+            <input type="text" name="endereco" id="endereco">
+            <br>
+            <div class="menu">
+                <label for="riscos">Identificando e reduzindo riscos</label>
+                <a onclick="addRisco()"><i class="fa-solid fa-circle-plus" title="Adicionar risco"></i></a>
+                <!--botão remover-->
+                <a onclick="document.getElementById('riscos').lastChild.remove()"><i class="fa-solid fa-circle-minus" title="Remover risco"></i></a>    
+            </div>
+            <div id="riscos">
+                <div class="risco">
+                    <label for="risco_ameaca">Risco(s) / Ameaça(s)</label>
+                    <input type="text" name="risco_ameaca[]" placeholder="Ameaça">
+                    <input type="text" name="risco_vulnerabilidade[]" placeholder="Vulnerabilidade">
+                    <input type="text" name="risco_acoes[]" placeholder="Ações de redução de risco">
+                    <input type="text" name="risco_responsavel[]" placeholder="Responsável pela ação">
+                </div>
+            </div>
+
+            <div class="menu">
+                <label for="membros">Membros da Família</label>
+                <a onclick="addMembro()"><i class="fa-solid fa-user-plus" title="Adicionar membro"></i></a>
+                <!--botão remover-->
+                <a onclick="document.getElementById('membros').lastChild.remove()"><i class="fa-solid fa-user-minus" title="Remover membro"></i></a>    
+            </div>
+
+            <div id="membros">
+                <div class="membro">
+                    <label for="membro_nome">Membro</label>
+                    <input type="text" name="membro_nome[]" placeholder="Nome">
+                    <input type="number" name="membro_idade[]" placeholder="Idade">
+                    <input type="text" name="membro_parentesco[]" placeholder="Parentesco">
+                    <input type="text" name="membro_cuidados[]" placeholder="Cuidados com a saúde">
+                    <input type="text" name="membro_telefone[]" placeholder="Número do Celular">
+                    <input type="text" name="membro_redes_sociais[]" placeholder="Mídia Social">
+                    <input type="email" name="membro_email[]" placeholder="E-mail">
+                    <input type="text" name="membro_informacoes[]" placeholder="Informações médicas ou outras informações importantes">
+                    <input type="text" name="membro_grupo_sanguineo[]" placeholder="Grupo sanguíneo">
+                    <input type="text" name="membro_alergias[]" placeholder="Informações e prescrições sobre alergias">
+                    <input type="text" name="membro_plano_saude[]" placeholder="Nome do Plano de Saúde">
+                    <input type="text" name="membro_carteira_plano[]" placeholder="Número da carteira do plano/registro">
+                </div>
+            </div>
+            <br>
+            <div class="menu">
+                <label for="medicos">Informações Médicas</label>
+                <a onclick="addMedico()"><i class="fa-solid fa-person-circle-plus" title="Adicionar Médico"></i></a>
+                <a onclick="document.getElementById('medicos').lastChild.remove()"><i class="fa-solid fa-person-circle-minus" title="Remover Médico"></i></a>
+            </div> 
+            <div id="medicos">
+                <div class="medico">
+                    <label for="medico_nome">Médico</label>
+                    <input type="text" name="medico_nome[]" placeholder="Nome do Médico">
+                    <input type="text" name="medico_contato[]" placeholder="Contato">
+                    <textarea name="medico_observacoes[]" placeholder="Observações"></textarea>
+                </div>      
+            </div>
+            <br>
+            <div class="menu">
+                <label for="planos">Preparação e Emergência</label>
+                <a onclick="addPlano()"><i class="fa-solid fa-file-circle-plus" title="Adicionar Plano"></i></a>
+                <a onclick="document.getElementById('planos').lastChild.remove()"><i class="fa-solid fa-file-circle-minus" title="Remover Plano"></i></a>
+            </div>
+            <div id="planos">
+                <div class="plano">
+                    <label for="plano_nome">Plano</label>
+                    <input type="text" name="plano_responsavel[]" placeholder="Responsável (nomear)">
+                    <textarea name="plano_plano[]" placeholder="O que fazer. Exemplo: 'desligar o dusjuntor.'"></textarea>
+                </div>
+            </div>
+            <br>
+            <div class="menu">
+                <label for="contatos">Contatos de Emergência</label>
+                <a onclick="addContato()"><i class="fa-solid fa-circle-plus" title="Adicionar Contato"></i></a>
+                <a onclick="document.getElementById('contatos').lastChild.remove()"><i class="fa-solid fa-circle-minus" title="Remover Contato"></i></a>
+            </div> 
+            <div id="contatos">
+                <div class="contato">
+                    <label for="contato_nome">Contato</label>
+                    <input type="text" name="contato_nome[]" placeholder="Nome">
+                    <input type="text" name="contato_celular[]" placeholder="Celular">
+                    <input type="text" name="contato_endereco[]" placeholder="Endereço">
+                    <input type="text" name="contato_email[]" placeholder="E-mail">
+                </div>
+            </div>
+            <br>
+            <div class="menu">
+                <label for="locais">Locais de Encontro</label>
+                <a onclick="addLocal()"><i class="fa-solid fa-square-plus" title="Adicionar Local"></i></a>
+                <a onclick="document.getElementById('locais').lastChild.remove()"><i class="fa-solid fa-square-minus" title="Remover Local"></i></a>
+            </div>
+            <div id ="locais">
+                <div class="local">
+                    <label for="local_localizacao">Local</label>
+                    <input type="text" name="local_localizacao[]" placeholder="Localização">
+                    <textarea name="local_instrucoes[]" placeholder="Instruções"></textarea>
+                </div>  
+            </div>
+            <br>
+ 
+            <button type="submit">Gerar o Plano</button>
+
+        </form>
+    </main>
+    <footer>
+        <p>Ao clicar em "Gerar o Plano", o documento será gerado em formato PDF. Salve no seu equipamento e compartilhe com a sua família.</p>
+        <p class="importante">IMPORTANTE! Seus dados não serão salvos em nosso servidor.</p>
+        <p>Autoria/Colaboração: Cleonice Maria Beppler, Rafael de Moura Speroni, Maria Eduarda Backschat Lima, Elton Cesar Cunha.</p>
+    </footer>
+</body>
+</html>
